@@ -1,12 +1,13 @@
 const MongoClient = require("mongodb");
 const ObjectId = MongoClient.ObjectId;
 
+
 function parseObjectIds(json){
    Object.entries(json).forEach(entry => {
        let key = entry[0];
        let value = entry[1];
        if(key == "_id"){
-           json.id = ObjectId(entry[1]);
+           json._id = ObjectId(entry[1]);
            return;
        }
        if(typeof value == "object"){
@@ -23,8 +24,37 @@ function parseObjectIds(json){
 
 function toAggregatePipeline(query){
 
-}
+    let pipeLine = Object.entries(query).filter(entry => {
 
+        let isCommand = entry[0].startsWith("$");
+
+        let validObject = typeof entry[1] == "object" && !Array.isArray(entry[1]);
+        let isEmptyObject = validObject && (Object.keys(entry[1]).length == 0);
+        let isOrderBy = entry[0] == "$orderby"
+
+        return isCommand && !isOrderBy && (validObject && !isEmptyObject);
+    })
+    .map(entry => {
+        let value = entry[1]
+        let operation = entry[0];
+        if(operation == "$filter"){
+            operation = "$match"
+        }
+
+        if(operation == "$select"){
+            operation = "$project"
+        }
+        if(operation == "$count"){
+            value = "count";
+        }
+        return {
+                [operation]: value
+            }
+    })
+        
+    return pipeLine;
+
+}
 
 function update(dbClient) {
     return async (collection, query, update, req, callback) => {
@@ -66,8 +96,16 @@ function query(dbClient) {
         try {
             query = parseObjectIds(query);
             let pipeLine = toAggregatePipeline(query);
+            
             let found = await dbClient.collection(collection).aggregate(pipeLine).toArray();
-            return callback(null, {count:found.length, value: found});
+            let result = found;
+            if(query.hasOwnProperty("$count") && query.$count){
+                result = {
+                    value: found,
+                    count: found.length
+                }
+            }
+            return callback(null, result);
         } catch (error) {
             return callback(error);
         }
@@ -77,7 +115,9 @@ function query(dbClient) {
 function insert(dbClient) {
     return async (collection, doc, req, callback) => {
         try {            
-            let inserted = await dbClient.collection(collection).insertOne(doc);
+            let result = await dbClient.collection(collection).insertOne(doc);
+            let inserted = await dbClient.collection(collection).findOne({_id: result.insertedId});
+
             return callback(null, inserted);
         } catch (error) {
             return callback(error);
