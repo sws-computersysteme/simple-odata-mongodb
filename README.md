@@ -19,5 +19,5 @@ The Adapter can be applied to an odata server in the follwing way:
 	});
 
 
-## Implementation provided by SWS Computersyteme:
+## Implementation provided by SWS Computersysteme:
 [HomePage](https://www.sws.de/)
