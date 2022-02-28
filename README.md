@@ -9,7 +9,7 @@ The simple-odata module can be found under the following links:
 [GitHub](https://github.com/pofider/node-simple-odata-server#readme)
 
 ## Usage:
-The Adapter can be applied to an mongodb adapter in the follwing way:
+The Adapter can be applied to an odata server in the follwing way:
 
     const MongoAdapter = require("simple-odata-mongodb");
     MongoClient.connect(url, function(err, db) {
