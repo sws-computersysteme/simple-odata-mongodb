@@ -1,0 +1,28 @@
+{
+  "name": "simple-odata-mongodb",
+  "version": "0.0.1",
+  "description": "Adapter module providing funtionallities to use simple-odata-server package with mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sws-computersysteme/simple-odata-mongodb.git"
+  },
+  "keywords": [
+    "SWS",
+    "simple-odata-server",
+    "mongodb",
+    "mongodb-adapter"
+  ],
+  "author": "SWS Computersysteme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sws-computersysteme/simple-odata-mongodb/issues"
+  },
+  "homepage": "https://github.com/sws-computersysteme/simple-odata-mongodb#readme",
+  "dependencies": {
+    "mongodb": "^4.4.0"
+  }
+}
