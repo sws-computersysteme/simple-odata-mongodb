@@ -1,6 +1,6 @@
 {
   "name": "@sws-computersysteme/simple-odata-mongodb",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Adapter module providing funtionallities to use simple-odata-server package with mongodb",
   "main": "index.js",
   "scripts": {
