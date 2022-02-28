@@ -1,1 +1,1 @@
-module.exports = require("./lib/MongoAdapter");
+module.exports = require("./src/Adapter");

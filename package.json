@@ -1,5 +1,5 @@
 {
-  "name": "simple-odata-mongodb",
+  "name": "@sws-computersysteme/simple-odata-mongodb",
   "version": "0.0.1",
   "description": "Adapter module providing funtionallities to use simple-odata-server package with mongodb",
   "main": "index.js",
@@ -24,5 +24,9 @@
   "homepage": "https://github.com/sws-computersysteme/simple-odata-mongodb#readme",
   "dependencies": {
     "mongodb": "^4.4.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {}
 }
